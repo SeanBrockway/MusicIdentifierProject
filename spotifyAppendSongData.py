@@ -13,9 +13,9 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 conn = MongoClient("mongodb://localhost:27017/")
 db = conn['gym-music-database']
-content_col = db['test_songlist']
+content_col = db['prediction_test_songs']
 i = 0 
-query = content_col.find({"song_type":"relax/sleep"})
+query = content_col.find({})
 
 for document in query: #For each stored playlist in the DB, get tracks 
     i+= 1

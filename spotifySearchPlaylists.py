@@ -13,8 +13,8 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 conn = MongoClient("mongodb://localhost:27017/")
 db = conn['gym-music-database']
 collection = db['Spotify Non-Gym Playlists']
-
-playlists = sp.search('sleep', limit=50, offset=0, type='playlist', market=None)
+term = 'Chill'
+playlists = sp.search(term, limit=50, offset=0, type='playlist', market=None)
 
 for playlist in playlists['playlists']['items']:
     print('Playlist')
@@ -22,6 +22,6 @@ for playlist in playlists['playlists']['items']:
     for key in playlist:
         print('\t', key, '->', playlist[key])
 
-    mydict = { "playlist_name": playlist['name'], "playlist_id": playlist['id'], "source": "Spotify"}
-    collection.insert_one(mydict)
+    mydict = { "playlist_name": playlist['name'], "playlist_id": playlist['id'], "source": "Spotify", "search_term": term}
+    # collection.insert_one(mydict)
 
